@@ -16,6 +16,15 @@ app.use(morgan('combined'));
 
 app.use(express.urlencoded({ extended: false }));
 
+app.use(session({
+  name: 'identity102-l01-e01',
+  secret: process.env.COOKIE_SECRET
+}))
+
+app.use(auth({
+  auth0Logout: true
+}))
+
 app.get('/', (req, res) => {
   res.render('home',  { user: req.openid && req.openid.user });
 });
